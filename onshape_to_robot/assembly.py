@@ -383,6 +383,30 @@ class Assembly:
         """Convert an occurrence path list to a flat instance_body key."""
         return "/".join(path)
 
+    def _subassembly_dof_key(self, prefix: list[str], path: list[str]) -> str:
+        """Body key for a DOF endpoint inside a sub-assembly.
+
+        Uses the first instance level below the sub-assembly root, matching how
+        master treats mates with two-level occurrence paths.
+        """
+        if len(path) <= 1:
+            return self._path_key(prefix + path)
+        return self._path_key(prefix + path[:1])
+
+    def _subassembly_scope_key(self, path: list[str]) -> str:
+        """Return the body key for a path, collapsing no-DOF sub-assemblies."""
+        for prefix, sub_asm, _instance_name in self.subassembly_instances:
+            if len(path) >= len(prefix) and path[: len(prefix)] == prefix:
+                sub_has_dof = any(
+                    feature["featureType"] == "mate"
+                    and not feature["suppressed"]
+                    and feature["featureData"]["name"].startswith("dof_")
+                    for feature in sub_asm.get("features", [])
+                )
+                if not sub_has_dof:
+                    return self._path_key(prefix)
+        return self._path_key(path) if len(path) > 1 else path[0]
+
     @staticmethod
     def _slugify_instance_name(name: str) -> str:
         """Produce a safe underscore-delimited prefix from an OnShape instance name.
@@ -445,6 +469,23 @@ class Assembly:
         """
         self.instance_body[id] = self.current_body_id
         self.current_body_id += 1
+
+    def merge_body_ids(self, body1_id: int, body2_id: int):
+        """Merge two bodies by id (lower id is kept)."""
+        if body1_id == body2_id:
+            return
+        if body1_id > body2_id:
+            body1_id, body2_id = body2_id, body1_id
+
+        for occurrence in self.instance_body:
+            if self.instance_body[occurrence] == body2_id:
+                self.instance_body[occurrence] = body1_id
+
+        for dof in self.dofs:
+            if dof.body1_id == body2_id:
+                dof.body1_id = body1_id
+            if dof.body2_id == body2_id:
+                dof.body2_id = body1_id
 
     def merge_bodies(self, occurrence_A: str, occurrence_B: str):
         # Ensure occurrences are body
@@ -566,7 +607,9 @@ class Assembly:
 
                 self.dofs.append(dof)
 
-        # Merging fixed links
+        # Merging fixed links (two passes: internal fixes first, then cross sub-assembly
+        # attachments so e.g. shoulder hardware is grouped before arm-to-torso mates).
+        fix_mates = []
         for data, occurrence_A, occurrence_B in self.feature_mating_two_occurrences():
             if data["name"].startswith("fix_") or (
                 data["mateType"] == "FASTENED"
@@ -574,7 +617,64 @@ class Assembly:
                 and not data["name"].startswith("closing_")
                 and not data["name"].startswith("frame_")
             ):
+                path_a = data["matedEntities"][0]["matedOccurrence"]
+                path_b = data["matedEntities"][1]["matedOccurrence"]
+                is_cross_attach = (
+                    path_a
+                    and path_b
+                    and path_a[0] != path_b[0]
+                    and len(path_a) > 1
+                    and len(path_b) > 1
+                ) or (
+                    path_a
+                    and path_b
+                    and path_a[0] != path_b[0]
+                    and len(path_a) == 1
+                    and len(path_b) > 1
+                    and not data["name"].endswith("_Motor_Attach")
+                )
+                fix_mates.append(
+                    (data, occurrence_A, occurrence_B, path_a, path_b, is_cross_attach)
+                )
+
+        for _data, occurrence_A, occurrence_B, _pa, _pb, is_cross in fix_mates:
+            if not is_cross:
                 self.merge_bodies(occurrence_A, occurrence_B)
+
+        for _data, occurrence_A, occurrence_B, path_a, path_b, is_cross in fix_mates:
+            if not is_cross:
+                continue
+            if (
+                path_a[0] != path_b[0]
+                and len(path_a) > 1
+                and len(path_b) > 1
+            ):
+                torso_key = self._subassembly_scope_key(path_b)
+                self.merge_bodies(self._path_key(path_a), torso_key)
+                torso_body = self.instance_body[torso_key]
+                arm_slug = self._slugify_instance_name(
+                    next(
+                        inst["name"]
+                        for inst in self.assembly_data["rootAssembly"]["instances"]
+                        if inst["id"] == path_a[0]
+                    )
+                )
+                for dof in self.dofs:
+                    if (
+                        dof.name.startswith(f"{arm_slug}_shoulder_pitch")
+                        and dof.body2_id != torso_body
+                    ):
+                        self.merge_body_ids(dof.body2_id, torso_body)
+            elif (
+                path_a[0] != path_b[0]
+                and len(path_a) == 1
+                and len(path_b) > 1
+                and not _data["name"].endswith("_Motor_Attach")
+            ):
+                self.merge_bodies(
+                    path_a[0],
+                    self._subassembly_scope_key(path_b),
+                )
 
         # Merging mate gorups
         for group in self.feature_mate_groups():
@@ -806,6 +906,12 @@ class Assembly:
 
         for prefix, sub_asm, instance_name in self.subassembly_instances:
             slug = self._slugify_instance_name(instance_name)
+            sub_has_dof = any(
+                feature["featureType"] == "mate"
+                and not feature["suppressed"]
+                and feature["featureData"]["name"].startswith("dof_")
+                for feature in sub_asm.get("features", [])
+            )
             for feature in sub_asm.get("features", []):
                 if feature["featureType"] == "mate" and not feature["suppressed"]:
                     data = feature["featureData"]
@@ -819,12 +925,24 @@ class Assembly:
                         continue
 
                     prefixed_data = self._prefix_feature_data(data, prefix, slug)
-                    occ_A = self._path_key(
-                        prefix + [data["matedEntities"][0]["matedOccurrence"][0]]
-                    )
-                    occ_B = self._path_key(
-                        prefix + [data["matedEntities"][1]["matedOccurrence"][0]]
-                    )
+                    path_a = prefixed_data["matedEntities"][0]["matedOccurrence"]
+                    path_b = prefixed_data["matedEntities"][1]["matedOccurrence"]
+
+                    if data["name"].startswith("dof_"):
+                        occ_A = self._subassembly_dof_key(
+                            prefix, data["matedEntities"][0]["matedOccurrence"]
+                        )
+                        occ_B = self._subassembly_dof_key(
+                            prefix, data["matedEntities"][1]["matedOccurrence"]
+                        )
+                    elif not sub_has_dof:
+                        # Sub-assemblies without internal DOFs (e.g. torso) keep all
+                        # parts on the sub-assembly instance body, like master.
+                        occ_A = self._path_key(prefix)
+                        occ_B = self._path_key(prefix)
+                    else:
+                        occ_A = self._path_key(path_a)
+                        occ_B = self._path_key(path_b)
 
                     yield prefixed_data, occ_A, occ_B
 
@@ -844,14 +962,23 @@ class Assembly:
             groups.append(group)
 
         for prefix, sub_asm, _instance_name in self.subassembly_instances:
+            sub_has_dof = any(
+                feature["featureType"] == "mate"
+                and not feature["suppressed"]
+                and feature["featureData"]["name"].startswith("dof_")
+                for feature in sub_asm.get("features", [])
+            )
             for feature in sub_asm.get("features", []):
                 group = []
                 if feature["featureType"] == "mateGroup" and not feature["suppressed"]:
                     data = feature["featureData"]
                     for occurrence in data["occurrences"]:
-                        group.append(
-                            self._path_key(prefix + [occurrence["occurrence"][0]])
-                        )
+                        if sub_has_dof:
+                            group.append(
+                                self._path_key(prefix + occurrence["occurrence"])
+                            )
+                        else:
+                            group.append(self._path_key(prefix))
                 if group:
                     groups.append(group)
 
@@ -1046,11 +1173,12 @@ class Assembly:
         for key, mapped_body_id in self.instance_body.items():
             if mapped_body_id != body_id:
                 continue
-            if "/" not in key:
-                continue
             path = key.split("/")
-            if tuple(path) in self.occurrences:
-                return self.occurrences[tuple(path)].get("instance")
+            occurrence = self.occurrences.get(tuple(path))
+            if occurrence is not None:
+                instance = occurrence.get("instance")
+                if instance is not None:
+                    return instance
 
         return None
 
