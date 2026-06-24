@@ -1,0 +1,349 @@
+<?xml version="1.0" ?>
+<!-- Generated using onshape-to-robot -->
+<!-- Onshape https://cad.onshape.com/documents/1d3327d1f480f211736a4e8a/w/588419a6855874768af7063c/e/7fc0a9d1f419e0baad283b66 -->
+<robot name="C:\Users\wwwgu\Louis_Onshapetorobot\onshape-to-robot\my-robot">
+  <!-- Link astro_02g_urdf_r0_v2 -->
+  <link name="astro_02g_urdf_r0_v2">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Link astro_02g_urdf_r1_v2_1 -->
+  <link name="astro_02g_urdf_r1_v2_1">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Link astro_02g_urdf_r3_v3_4 -->
+  <link name="astro_02g_urdf_r3_v3_4">
+    <inertial>
+      <origin xyz="0.0538697 -0.00555042 -0.141841" rpy="0 0 0"/>
+      <mass value="3.71691e-05"/>
+      <inertia ixx="5.7521e-08" ixy="-2.74e-09" ixz="7.3e-11" iyy="5.259e-09" iyz="-1.605e-09" izz="6.0774e-08"/>
+    </inertial>
+    <!-- Part part_1 -->
+    <visual>
+      <origin xyz="0.072 0.0535 -0.14835" rpy="0 -0 -3.14159"/>
+      <geometry>
+        <mesh filename="assets/part_1.stl"/>
+      </geometry>
+      <material name="part_1_material">
+        <color rgba="0.615686 0.811765 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.072 0.0535 -0.14835" rpy="0 -0 -3.14159"/>
+      <geometry>
+        <mesh filename="assets/part_1.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Joint from astro_02g_urdf_r1_v2_1 to astro_02g_urdf_r3_v3_4 -->
+  <joint name="Waist_Yaw" type="revolute">
+    <origin xyz="-0.02 -0 -0.07575" rpy="1.5708 0 1.5708"/>
+    <parent link="astro_02g_urdf_r1_v2_1"/>
+    <child link="astro_02g_urdf_r3_v3_4"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-1.5708" upper="1.5708"/>
+  </joint>
+  <!-- Joint from astro_02g_urdf_r0_v2 to astro_02g_urdf_r1_v2_1 -->
+  <joint name="Waist_Roll" type="revolute">
+    <origin xyz="0 -0 -0" rpy="3.14159 1.5708 0"/>
+    <parent link="astro_02g_urdf_r0_v2"/>
+    <child link="astro_02g_urdf_r1_v2_1"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-0.523599" upper="0.523599"/>
+  </joint>
+  <!-- Link astro_02g_urdf_r10_v1 -->
+  <link name="astro_02g_urdf_r10_v1">
+    <inertial>
+      <origin xyz="0.00299429 0 -0.0757597" rpy="0 0 0"/>
+      <mass value="1.49972"/>
+      <inertia ixx="0.00261348" ixy="0" ixz="6.8083e-07" iyy="0.00157578" iyz="0" izz="0.00160009"/>
+    </inertial>
+    <!-- Part rs04__motor_type_rs04 -->
+    <visual>
+      <origin xyz="0.0195 0 -0.07575" rpy="1.5708 0 -1.5708"/>
+      <geometry>
+        <mesh filename="assets/rs04__motor_type_rs04.stl"/>
+      </geometry>
+      <material name="rs04__motor_type_rs04_material">
+        <color rgba="0.615686 0.811765 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0195 0 -0.07575" rpy="1.5708 0 -1.5708"/>
+      <geometry>
+        <mesh filename="assets/rs04__motor_type_rs04.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link astro_02g_urdf_r11_v1 -->
+  <link name="astro_02g_urdf_r11_v1">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Link astro_02g_urdf_r12_v1 -->
+  <link name="astro_02g_urdf_r12_v1">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Link astro_02g_urdf_r13_v2_1 -->
+  <link name="astro_02g_urdf_r13_v2_1">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Link astro_02g_urdf_r14_v2 -->
+  <link name="astro_02g_urdf_r14_v2">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Link astro_02g_urdf_r15_v3 -->
+  <link name="astro_02g_urdf_r15_v3">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Joint from astro_02g_urdf_r14_v2 to astro_02g_urdf_r15_v3 -->
+  <joint name="Right_Ankle_Pitch" type="revolute">
+    <origin xyz="0.021 0.03 0.0261" rpy="3.14159 1.5708 0"/>
+    <parent link="astro_02g_urdf_r14_v2"/>
+    <child link="astro_02g_urdf_r15_v3"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-0.523599" upper="0.523599"/>
+  </joint>
+  <!-- Joint from astro_02g_urdf_r13_v2_1 to astro_02g_urdf_r14_v2 -->
+  <joint name="Right_Ankle_Roll" type="revolute">
+    <origin xyz="0.0261 0.349 0.02025" rpy="0 -1.5708 0"/>
+    <parent link="astro_02g_urdf_r13_v2_1"/>
+    <child link="astro_02g_urdf_r14_v2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-0.349066" upper="0.349066"/>
+  </joint>
+  <!-- Link astro_02g_urdf_lever_motor_v3 -->
+  <link name="astro_02g_urdf_lever_motor_v3">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Joint from astro_02g_urdf_r13_v2_1 to astro_02g_urdf_lever_motor_v3 -->
+  <joint name="Right_R15_MOTOR" type="revolute">
+    <origin xyz="-0.0223 0.237 0.02025" rpy="-1.5708 1.38027 -1.5708"/>
+    <parent link="astro_02g_urdf_r13_v2_1"/>
+    <child link="astro_02g_urdf_lever_motor_v3"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-3.141592653589793" upper="3.141592653589793"/>
+  </joint>
+  <!-- Link astro_02g_urdf_lever_motor_v3_2 -->
+  <link name="astro_02g_urdf_lever_motor_v3_2">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Joint from astro_02g_urdf_r13_v2_1 to astro_02g_urdf_lever_motor_v3_2 -->
+  <joint name="Right_R14_MOTOR" type="revolute">
+    <origin xyz="-0.0223 0.137 0.02025" rpy="1.5708 -1.45057 1.5708"/>
+    <parent link="astro_02g_urdf_r13_v2_1"/>
+    <child link="astro_02g_urdf_lever_motor_v3_2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-3.141592653589793" upper="3.141592653589793"/>
+  </joint>
+  <!-- Joint from astro_02g_urdf_r12_v1 to astro_02g_urdf_r13_v2_1 -->
+  <joint name="Right_Knee_Pitch" type="revolute">
+    <origin xyz="-0.02 0 -0.16825" rpy="-1.5708 -0 -1.5708"/>
+    <parent link="astro_02g_urdf_r12_v1"/>
+    <child link="astro_02g_urdf_r13_v2_1"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="0" upper="2.0944"/>
+  </joint>
+  <!-- Joint from astro_02g_urdf_r11_v1 to astro_02g_urdf_r12_v1 -->
+  <joint name="Right_Hips_Yaw" type="revolute">
+    <origin xyz="3.16418e-06 -0.1522 0.0252076" rpy="1.5708 0.000168777 -3.14159"/>
+    <parent link="astro_02g_urdf_r11_v1"/>
+    <child link="astro_02g_urdf_r12_v1"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-1.5708" upper="1.5708"/>
+  </joint>
+  <!-- Joint from astro_02g_urdf_r10_v1 to astro_02g_urdf_r11_v1 -->
+  <joint name="Right_Hips_Roll" type="revolute">
+    <origin xyz="-0.02 0 -0.07575" rpy="-0 1.5708 0"/>
+    <parent link="astro_02g_urdf_r10_v1"/>
+    <child link="astro_02g_urdf_r11_v1"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-0.523599" upper="1.5708"/>
+  </joint>
+  <!-- Joint from astro_02g_urdf_r0_v2 to astro_02g_urdf_r10_v1 -->
+  <joint name="Right_Hips_Pitch" type="revolute">
+    <origin xyz="0.07575 -0.056 -0.115" rpy="1.5708 -0 -3.14159"/>
+    <parent link="astro_02g_urdf_r0_v2"/>
+    <child link="astro_02g_urdf_r10_v1"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-1.5708" upper="1.5708"/>
+  </joint>
+  <!-- Link astro_02g_urdf_r10_v1_2 -->
+  <link name="astro_02g_urdf_r10_v1_2">
+    <inertial>
+      <origin xyz="0.00299429 0 -0.0757597" rpy="0 0 0"/>
+      <mass value="1.49972"/>
+      <inertia ixx="0.00261348" ixy="0" ixz="6.8083e-07" iyy="0.00157578" iyz="-0" izz="0.00160009"/>
+    </inertial>
+    <!-- Part rs04__motor_type_rs04_2 -->
+    <visual>
+      <origin xyz="0.0195 0 -0.07575" rpy="1.5708 0 -1.5708"/>
+      <geometry>
+        <mesh filename="assets/rs04__motor_type_rs04.stl"/>
+      </geometry>
+      <material name="rs04__motor_type_rs04_2_material">
+        <color rgba="0.615686 0.811765 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0195 0 -0.07575" rpy="1.5708 0 -1.5708"/>
+      <geometry>
+        <mesh filename="assets/rs04__motor_type_rs04.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link astro_02g_urdf_r21_v1 -->
+  <link name="astro_02g_urdf_r21_v1">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Link astro_02g_urdf_r22_v1 -->
+  <link name="astro_02g_urdf_r22_v1">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Link astro_02g_urdf_r23_v2_1 -->
+  <link name="astro_02g_urdf_r23_v2_1">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Link astro_02g_urdf_r14_v2_2 -->
+  <link name="astro_02g_urdf_r14_v2_2">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Link astro_02g_urdf_r15_v3_2 -->
+  <link name="astro_02g_urdf_r15_v3_2">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Joint from astro_02g_urdf_r14_v2_2 to astro_02g_urdf_r15_v3_2 -->
+  <joint name="Left_Ankle_Pitch" type="revolute">
+    <origin xyz="0.021 0.03 0.0261" rpy="-3.14159 1.5708 0"/>
+    <parent link="astro_02g_urdf_r14_v2_2"/>
+    <child link="astro_02g_urdf_r15_v3_2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-0.523599" upper="0.523599"/>
+  </joint>
+  <!-- Joint from astro_02g_urdf_r23_v2_1 to astro_02g_urdf_r14_v2_2 -->
+  <joint name="Left_Ankle_Roll" type="revolute">
+    <origin xyz="0.0261 -0.349 0.02025" rpy="3.14159 1.5708 0"/>
+    <parent link="astro_02g_urdf_r23_v2_1"/>
+    <child link="astro_02g_urdf_r14_v2_2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-0.349066" upper="0.349066"/>
+  </joint>
+  <!-- Link astro_02g_urdf_lever_motor_v3_3 -->
+  <link name="astro_02g_urdf_lever_motor_v3_3">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Joint from astro_02g_urdf_r23_v2_1 to astro_02g_urdf_lever_motor_v3_3 -->
+  <joint name="Left_R15_MOTOR" type="revolute">
+    <origin xyz="-0.0223 -0.137 0.02025" rpy="-1.5708 -1.44994 -1.5708"/>
+    <parent link="astro_02g_urdf_r23_v2_1"/>
+    <child link="astro_02g_urdf_lever_motor_v3_3"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-3.141592653589793" upper="3.141592653589793"/>
+  </joint>
+  <!-- Link astro_02g_urdf_lever_motor_v3_4 -->
+  <link name="astro_02g_urdf_lever_motor_v3_4">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Joint from astro_02g_urdf_r23_v2_1 to astro_02g_urdf_lever_motor_v3_4 -->
+  <joint name="Left_R14_MOTOR" type="revolute">
+    <origin xyz="-0.0223 -0.237 0.02025" rpy="1.5708 1.38027 1.5708"/>
+    <parent link="astro_02g_urdf_r23_v2_1"/>
+    <child link="astro_02g_urdf_lever_motor_v3_4"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-3.141592653589793" upper="3.141592653589793"/>
+  </joint>
+  <!-- Joint from astro_02g_urdf_r22_v1 to astro_02g_urdf_r23_v2_1 -->
+  <joint name="Left_Knee_Pitch" type="revolute">
+    <origin xyz="0.02 -0 -0.16825" rpy="1.5708 0 -1.5708"/>
+    <parent link="astro_02g_urdf_r22_v1"/>
+    <child link="astro_02g_urdf_r23_v2_1"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-2.0944" upper="0"/>
+  </joint>
+  <!-- Joint from astro_02g_urdf_r21_v1 to astro_02g_urdf_r22_v1 -->
+  <joint name="Left_Hips_Yaw" type="revolute">
+    <origin xyz="-3.16547e-06 0.1522 0.0251924" rpy="1.5708 0.000168777 -0"/>
+    <parent link="astro_02g_urdf_r21_v1"/>
+    <child link="astro_02g_urdf_r22_v1"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-1.5708" upper="1.5708"/>
+  </joint>
+  <!-- Joint from astro_02g_urdf_r10_v1_2 to astro_02g_urdf_r21_v1 -->
+  <joint name="Left_Hips_Roll" type="revolute">
+    <origin xyz="-0.02 -0 -0.07575" rpy="-0 1.5708 0"/>
+    <parent link="astro_02g_urdf_r10_v1_2"/>
+    <child link="astro_02g_urdf_r21_v1"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-1.5708" upper="0.523599"/>
+  </joint>
+  <!-- Joint from astro_02g_urdf_r0_v2 to astro_02g_urdf_r10_v1_2 -->
+  <joint name="Left_Hips_Pitch" type="revolute">
+    <origin xyz="0.07575 0.056 -0.115" rpy="-1.5708 0 3.14159"/>
+    <parent link="astro_02g_urdf_r0_v2"/>
+    <child link="astro_02g_urdf_r10_v1_2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-1.5708" upper="1.5708"/>
+  </joint>
+</robot>

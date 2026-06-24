@@ -1,0 +1,14 @@
+{
+    "configuration": "default",
+    "documentId": "eee48b52dc4239f91830ab06",
+    "documentMicroversion": "2b9b377e36a5bfeb4e1e576d",
+    "documentVersion": "3f69cf1f90869104924f6575",
+    "elementId": "8b23b2df67530dbd98ddf7cf",
+    "fullConfiguration": "default",
+    "id": "MpcnR+XeXO2wPJY76",
+    "isStandardContent": false,
+    "name": "Shoulder_pitch_anchor <1>",
+    "partId": "J1D",
+    "suppressed": false,
+    "type": "Part"
+}

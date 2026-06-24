@@ -1,0 +1,14 @@
+{
+    "configuration": "default",
+    "documentId": "eee48b52dc4239f91830ab06",
+    "documentMicroversion": "2b9b377e36a5bfeb4e1e576d",
+    "documentVersion": "3f69cf1f90869104924f6575",
+    "elementId": "ec6c8362820f5709ec924acd",
+    "fullConfiguration": "default",
+    "id": "MUSjymdwomeCNuaRs",
+    "isStandardContent": false,
+    "name": "Shoulder_pitch_bearing_spacer <1>",
+    "partId": "RyBD",
+    "suppressed": false,
+    "type": "Part"
+}

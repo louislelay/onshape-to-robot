@@ -1,0 +1,14 @@
+{
+    "configuration": "default",
+    "documentId": "b359a84dda5f863da87f12d6",
+    "documentMicroversion": "27ee2c530fd7b2015564fcfe",
+    "documentVersion": "6dc0d7626cc8b33512ab2c04",
+    "elementId": "b6fba18fa8a308cc23a30449",
+    "fullConfiguration": "default",
+    "id": "MvyHbT2OHvYrz0fQt",
+    "isStandardContent": false,
+    "name": "ASTRO_EndstopHipsRotation_V1 <2>",
+    "partId": "JFj",
+    "suppressed": false,
+    "type": "Part"
+}

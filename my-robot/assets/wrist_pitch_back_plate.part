@@ -1,0 +1,14 @@
+{
+    "configuration": "default",
+    "documentId": "eee48b52dc4239f91830ab06",
+    "documentMicroversion": "2b9b377e36a5bfeb4e1e576d",
+    "documentVersion": "3f69cf1f90869104924f6575",
+    "elementId": "e1d538c9689bd39cdbf32c2d",
+    "fullConfiguration": "default",
+    "id": "MFvyIiQnvxsp7jTUZ",
+    "isStandardContent": false,
+    "name": "wrist_pitch_back_plate <1>",
+    "partId": "R5BD",
+    "suppressed": false,
+    "type": "Part"
+}

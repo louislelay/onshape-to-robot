@@ -1,0 +1,14 @@
+{
+    "configuration": "default",
+    "documentId": "cec262d429e693c42adb70d6",
+    "documentMicroversion": "8e925b4a0d2646e127f69ce9",
+    "documentVersion": "223446abcf1c96c584feb9a3",
+    "elementId": "a45bef25d61ee246ec7cec4e",
+    "fullConfiguration": "default",
+    "id": "MjGHL13RlageMXyVb",
+    "isStandardContent": false,
+    "name": "MotorBoard_FixtureV1 <7>",
+    "partId": "KFDE",
+    "suppressed": false,
+    "type": "Part"
+}
